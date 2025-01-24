@@ -46,7 +46,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 80vh;
-  background: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+  background: linear-gradient(135deg, #CC0000 0%, #990000 100%);
   border-radius: 20px;
   padding: 2rem;
   position: relative;
@@ -55,6 +55,7 @@
 }
 
 .title {
+  font-family: 'Playfair Display', serif !important;
   font-size: 4em;
   margin: 2rem 0;
   color: #FFD700;
@@ -63,6 +64,7 @@
 }
 
 .english-title {
+  font-family: 'Dancing Script', cursive !important;
   font-size: 0.5em;
   display: block;
   color: #FFA500;
@@ -83,9 +85,11 @@
 }
 
 .year-title {
+  font-family: 'Playfair Display', serif !important;
   font-size: 2.5em;
   color: #FF4D4D;
   margin-bottom: 2rem;
+  text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
 }
 
 .blessing-cards {
@@ -108,13 +112,17 @@
 }
 
 .card h3 {
+  font-family: 'Noto Sans SC', sans-serif !important;
   color: #FFD700;
   font-size: 1.5em;
   margin-bottom: 1rem;
 }
 
 .card p {
+  font-family: 'Playfair Display', serif !important;
   color: #FFA07A;
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
 .lanterns {
@@ -192,134 +200,182 @@
   }
 }
 
-.fireworks {
+/* Remove the old fireworks styles and add these new ones */
+#fireworks {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  z-index: 1;
 }
 
-.firework {
+/* Make sure all content is above the fireworks */
+.title,
+.content,
+.decorations,
+.lanterns {
+  position: relative;
+  z-index: 3;
+}
+
+/* Ant Design Overrides */
+.ant-card {
+  background: rgba(255, 0, 0, 0.1) !important;
+  border: 2px solid #FF0000 !important;
+  border-radius: 15px !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+}
+
+.ant-card-head-title {
+  font-family: 'Noto Sans SC', sans-serif !important;
+  color: #FFD700 !important;
+  font-size: 1.5em !important;
+}
+
+.ant-typography {
+  color: inherit !important;
+}
+
+/* Add Ant Design's fade animations */
+.blessing-cards .ant-card {
+  animation: antFadeIn 1s ease-out;
+}
+
+@keyframes antFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger the card animations */
+.blessing-cards .ant-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.blessing-cards .ant-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.blessing-cards .ant-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.plum-blossoms {
   position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  pointer-events: none;
 }
 
-.firework:nth-child(1) {
-  top: 50%;
-  left: 20%;
-  animation: firework1 2s ease-out infinite;
+.plum-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  transform: rotate(-10deg);
 }
 
-.firework:nth-child(2) {
-  top: 40%;
-  left: 60%;
-  animation: firework2 2.5s ease-out infinite;
+.plum-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 200px;
+  transform: rotate(10deg) scaleX(-1);
 }
 
-.firework:nth-child(3) {
-  top: 60%;
-  left: 40%;
-  animation: firework3 2.3s ease-out infinite;
+.tet-card {
+  width: 300px;
+  background: linear-gradient(145deg, #FFE4E1 0%, #FFFFFF 100%) !important;
+  border: 2px solid #FFD700 !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-.firework:nth-child(4) {
-  top: 30%;
-  left: 80%;
-  animation: firework4 2.7s ease-out infinite;
+.tet-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
 }
 
-.firework:nth-child(5) {
-  top: 70%;
-  left: 30%;
-  animation: firework5 2.1s ease-out infinite;
+.card-icon {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  object-fit: contain;
 }
 
-@keyframes firework1 {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 
-      0 0 0 0 #FFD700,
-      0 0 0 0 #FF0000;
-  }
-  100% {
-    transform: scale(50);
-    opacity: 0;
-    box-shadow: 
-      0 0 100px 10px #FFD700,
-      0 0 150px 15px #FF0000;
-  }
+.card-content {
+  text-align: center;
+  padding: 20px;
 }
 
-@keyframes firework2 {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 
-      0 0 0 0 #FF4D4D,
-      0 0 0 0 #FFA500;
-  }
-  100% {
-    transform: scale(50);
-    opacity: 0;
-    box-shadow: 
-      0 0 120px 12px #FF4D4D,
-      0 0 180px 18px #FFA500;
-  }
+.card-content h3 {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: #CC0000;
+  font-size: 2em;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes firework3 {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 
-      0 0 0 0 #FFD700,
-      0 0 0 0 #FF69B4;
-  }
-  100% {
-    transform: scale(50);
-    opacity: 0;
-    box-shadow: 
-      0 0 140px 14px #FFD700,
-      0 0 200px 20px #FF69B4;
-  }
+.card-content p {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #333333;
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
-@keyframes firework4 {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 
-      0 0 0 0 #FF0000,
-      0 0 0 0 #FFD700;
-  }
-  100% {
-    transform: scale(50);
-    opacity: 0;
-    box-shadow: 
-      0 0 160px 16px #FF0000,
-      0 0 220px 22px #FFD700;
-  }
+.snake-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  animation: bounce 2s ease-in-out infinite;
 }
 
-@keyframes firework5 {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 
-      0 0 0 0 #FFA500,
-      0 0 0 0 #FF4D4D;
-  }
-  100% {
-    transform: scale(50);
-    opacity: 0;
-    box-shadow: 
-      0 0 180px 18px #FFA500,
-      0 0 240px 24px #FF4D4D;
-  }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Frame decorations */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid #FFD700;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #FFD700;
+  border-radius: 15px;
+  pointer-events: none;
 }
