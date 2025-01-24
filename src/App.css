@@ -40,3 +40,286 @@
 .read-the-docs {
   color: #888;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.title {
+  font-size: 4em;
+  margin: 2rem 0;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FF0000;
+  animation: floating 3s ease-in-out infinite;
+}
+
+.english-title {
+  font-size: 0.5em;
+  display: block;
+  color: #FFA500;
+}
+
+.snake-container {
+  margin: 2rem 0;
+}
+
+.snake-symbol {
+  font-size: 8em;
+  animation: slither 5s ease-in-out infinite;
+}
+
+.content {
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.year-title {
+  font-size: 2.5em;
+  color: #FF4D4D;
+  margin-bottom: 2rem;
+}
+
+.blessing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px solid #FF0000;
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card h3 {
+  color: #FFD700;
+  font-size: 1.5em;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: #FFA07A;
+}
+
+.lanterns {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.lantern {
+  width: 50px;
+  height: 70px;
+  background: #FF0000;
+  border-radius: 50% / 20%;
+  position: relative;
+  animation: sway 3s ease-in-out infinite;
+}
+
+.lantern::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: #FFD700;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.decorations {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.decoration {
+  font-size: 2em;
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slither {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(20px) rotate(10deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 3em;
+  }
+
+  .snake-symbol {
+    font-size: 6em;
+  }
+
+  .blessing-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .lantern {
+    width: 30px;
+    height: 50px;
+  }
+}
+
+.fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.firework {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.firework:nth-child(1) {
+  top: 50%;
+  left: 20%;
+  animation: firework1 2s ease-out infinite;
+}
+
+.firework:nth-child(2) {
+  top: 40%;
+  left: 60%;
+  animation: firework2 2.5s ease-out infinite;
+}
+
+.firework:nth-child(3) {
+  top: 60%;
+  left: 40%;
+  animation: firework3 2.3s ease-out infinite;
+}
+
+.firework:nth-child(4) {
+  top: 30%;
+  left: 80%;
+  animation: firework4 2.7s ease-out infinite;
+}
+
+.firework:nth-child(5) {
+  top: 70%;
+  left: 30%;
+  animation: firework5 2.1s ease-out infinite;
+}
+
+@keyframes firework1 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 0 0 #FFD700,
+      0 0 0 0 #FF0000;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+    box-shadow: 
+      0 0 100px 10px #FFD700,
+      0 0 150px 15px #FF0000;
+  }
+}
+
+@keyframes firework2 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 0 0 #FF4D4D,
+      0 0 0 0 #FFA500;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+    box-shadow: 
+      0 0 120px 12px #FF4D4D,
+      0 0 180px 18px #FFA500;
+  }
+}
+
+@keyframes firework3 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 0 0 #FFD700,
+      0 0 0 0 #FF69B4;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+    box-shadow: 
+      0 0 140px 14px #FFD700,
+      0 0 200px 20px #FF69B4;
+  }
+}
+
+@keyframes firework4 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 0 0 #FF0000,
+      0 0 0 0 #FFD700;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+    box-shadow: 
+      0 0 160px 16px #FF0000,
+      0 0 220px 22px #FFD700;
+  }
+}
+
+@keyframes firework5 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 0 0 #FFA500,
+      0 0 0 0 #FF4D4D;
+  }
+  100% {
+    transform: scale(50);
+    opacity: 0;
+    box-shadow: 
+      0 0 180px 18px #FFA500,
+      0 0 240px 24px #FF4D4D;
+  }
+}

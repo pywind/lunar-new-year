@@ -1,34 +1,55 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="fireworks">
+        <div className="firework"></div>
+        <div className="firework"></div>
+        <div className="firework"></div>
+        <div className="firework"></div>
+        <div className="firework"></div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      
+      <div className="lanterns">
+        <div className="lantern"></div>
+        <div className="lantern"></div>
+        <div className="lantern"></div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      
+      <h1 className="title">
+        恭喜發財 <br />
+        <span className="english-title">Happy Lunar New Year</span>
+      </h1>
+
+      <div className="snake-container">
+        <div className="snake-symbol">🐍</div>
+      </div>
+
+      <div className="content">
+        <h2 className="year-title">Year of the Snake 2025</h2>
+        <div className="blessing-cards">
+          <div className="card">
+            <h3>智慧 Wisdom</h3>
+            <p>May the Snake's wisdom guide your path</p>
+          </div>
+          <div className="card">
+            <h3>繁榮 Prosperity</h3>
+            <p>Wishing you wealth and abundance</p>
+          </div>
+          <div className="card">
+            <h3>好運 Fortune</h3>
+            <p>Good fortune follows you this year</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="decorations">
+        <span className="decoration">🏮</span>
+        <span className="decoration">💮</span>
+        <span className="decoration">🎋</span>
+      </div>
+    </div>
   );
 }
 
