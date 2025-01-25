@@ -85,7 +85,7 @@ function App() {
         <Space direction="horizontal" size="large" wrap className="blessing-cards">
           <Card 
             className="tet-card"
-            cover={<img alt="prosperity" src="/images/prosperity-icon.png" className="card-icon" />}
+            cover={<img alt="prosperity" src="/images/zodiac-snake-lion-hat.png" className="card-icon" />}
           >
             <div className="card-content">
               <h3>Phúc</h3>
@@ -94,7 +94,7 @@ function App() {
           </Card>
           <Card 
             className="tet-card"
-            cover={<img alt="luck" src="/images/luck-icon.png" className="card-icon" />}
+            cover={<img alt="luck" src="/images/zodiac-snake-lantern.png" className="card-icon" />}
           >
             <div className="card-content">
               <h3>Lộc</h3>
@@ -103,7 +103,7 @@ function App() {
           </Card>
           <Card 
             className="tet-card"
-            cover={<img alt="happiness" src="/images/happiness-icon.png" className="card-icon" />}
+            cover={<img alt="happiness" src="/images/zodiac-snake-cloud.png" className="card-icon" />}
           >
             <div className="card-content">
               <h3>Thọ</h3>
