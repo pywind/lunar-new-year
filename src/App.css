@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -59,33 +60,101 @@
   max-width: 1200px;
 }
 
-.title {
-  position: relative;
-  z-index: 3;
-  font-family: 'Playfair Display', serif !important;
-  font-size: clamp(1.5rem, 4vw, 4rem);
-  margin: 2rem 0;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FF0000;
-  animation: floating 3s ease-in-out infinite;
-  text-align: center;
-  width: 100%;
-  padding: 0 1rem;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  background: #CC0000;
+/* Reset Ant Design Title styles */
+.main-title.ant-typography {
+  margin: 2rem auto !important;
+  padding: 2rem !important;
+  background: linear-gradient(145deg, #CC0000, #990000);
   border: 3px solid #FFD700;
   border-radius: 25px;
-  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
   max-width: 1200px;
+  text-align: center;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title-content, .subtitle-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.vn-title {
+  font-family: serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #FFD700 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  padding: 0.5rem;
+  display: inline-block;
+}
+
+.en-title {
+  font-family: serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: #FFA500 !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  display: inline-block;
+}
+
+.title-content .anticon, 
+.subtitle-content .anticon {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: #FFD700;
+}
+
+/* Animation */
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.main-title {
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .main-title.ant-typography {
+    padding: 1.5rem !important;
+    margin: 1.5rem auto !important;
+  }
+
+  .title-content, .subtitle-content {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title.ant-typography {
+    padding: 1rem !important;
+    margin: 1rem auto !important;
+  }
+
+  .vn-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .en-title {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+  }
 }
 
 .english-title {
   font-family: 'Dancing Script', cursive !important;
   font-size: clamp(1rem, 2.5vw, 2rem);
   display: block;
-  color: #FFA500;
+  color: #FFA500 !important;
   margin-top: 0.5rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -261,6 +330,14 @@
     width: 30px;
     height: 50px;
   }
+
+  .decoration, .lantern {
+    animation: none;
+  }
+  
+  .snake-image {
+    animation: simplified-bounce 2s ease-in-out infinite;
+  }
 }
 
 @media (max-width: 480px) {
@@ -372,25 +449,34 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 300px;
   pointer-events: none;
-  z-index: 1;
-  overflow: visible;
+  z-index: 4;
 }
 
 .plum-left, .plum-right {
   position: absolute;
-  top: 20px;
+  top: 40px;
   width: 150px;
   height: auto;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  display: block;
 }
 
 .plum-left {
-  left: 20px;
+  left: 40px;
+  transform: rotate(-15deg) scale(1.2);
 }
 
 .plum-right {
-  right: 20px;
+  right: 40px;
+  transform: rotate(15deg) scale(1.2);
+}
+
+.plum-left:hover, .plum-right:hover {
+  opacity: 1;
+  transform: rotate(0) scale(1.3);
 }
 
 .tet-card {
@@ -437,7 +523,6 @@
   font-size: 1em;
   line-height: 1.4;
 }
-
 .snake-image {
   width: 200px;
   height: 200px;
@@ -533,3 +618,47 @@ img[src$=".png"] {
   max-width: 100%;
   height: auto;
 }
+
+/* Use hardware acceleration for animations */
+.snake-image, .lantern, .decoration {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes simplified-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+  .plum-left, .plum-right {
+    width: 100px;
+    top: 10px;
+  }
+  
+  .plum-left {
+    left: 10px;
+  }
+  
+  .plum-right {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .plum-left, .plum-right {
+    width: 80px;
+    top: 5px;
+  }
+  
+  .plum-left {
+    left: 5px;
+  }
+  
+  .plum-right {
+    right: 5px;
+  }
+}
+
