@@ -1,7 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import "./App.css";
 import { Typography } from "antd";
-import { CrownTwoTone } from "@ant-design/icons";
 import { loadFireworksPreset } from "tsparticles-preset-fireworks";
 import Particles from "react-tsparticles";
 import type { Container, Engine } from "@tsparticles/engine";
