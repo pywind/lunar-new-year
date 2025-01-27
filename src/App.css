@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 #root {
   max-width: 1280px;
@@ -95,11 +96,12 @@
 }
 
 .year-title {
-  font-family: 'Playfair Display', serif !important;
-  font-size: 2.5em;
-  color: #FF4D4D;
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 3em;
+  color: #FFD700;
   margin-bottom: 2rem;
-  text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05em;
 }
 
 .blessing-cards {
@@ -109,6 +111,8 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin: 2rem 0;
+  width: 100%;
+  justify-content: center;
 }
 
 .card {
@@ -143,26 +147,42 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
+  padding: 0 5%;
+  z-index: 2;
 }
 
 .lantern {
-  width: 50px;
-  height: 70px;
-  background: #FF0000;
+  width: clamp(30px, 5vw, 50px);
+  height: clamp(50px, 8vw, 70px);
+  background: linear-gradient(145deg, #FF0000 0%, #CC0000 100%);
   border-radius: 50% / 20%;
   position: relative;
   animation: sway 3s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .lantern::before {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 20px;
+  width: 20%;
+  height: 20%;
   background: #FFD700;
-  top: -10px;
+  top: -10%;
   left: 50%;
   transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.lantern::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 10%;
+  background: rgba(255, 255, 255, 0.2);
+  top: 20%;
+  left: 20%;
+  border-radius: 50%;
 }
 
 .decorations {
@@ -189,8 +209,12 @@
 }
 
 @keyframes sway {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
+  0%, 100% { 
+    transform: rotate(-5deg) translateY(0); 
+  }
+  50% { 
+    transform: rotate(5deg) translateY(-5px); 
+  }
 }
 
 @media (max-width: 768px) {
@@ -213,8 +237,11 @@
   }
 
   .lantern {
-    width: 30px;
-    height: 50px;
+    animation-duration: 2s;
+  }
+  
+  .lanterns {
+    padding: 0 10%;
   }
 
   .decoration, .lantern {
@@ -223,6 +250,20 @@
   
   .snake-image {
     animation: simplified-bounce 2s ease-in-out infinite;
+  }
+
+  .tet-card {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .year-title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
   }
 }
 
@@ -346,16 +387,50 @@
 .tet-card {
   width: 300px;
   background: linear-gradient(145deg, #FFE4E1 0%, #FFFFFF 100%) !important;
-  border: 2px solid #FFD700 !important;
+  border: none !important;
   border-radius: 20px !important;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  position: relative;
+  padding: 2px;
 }
 
-.tet-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+/* Add decorative frame */
+.tet-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px; 
+  padding: 3px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.tet-card .ant-card-body {
+  background: linear-gradient(145deg, #CC0000 0%, #990000 100%);
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+.card-content h3 {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: #FFD700;
+  font-size: 2em;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card-content p {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #FFFFFF;
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
 .card-icon {
@@ -371,25 +446,6 @@
   transform: scale(1.05);
 }
 
-.card-content {
-  text-align: center;
-  padding: clamp(0.8rem, 2.5vw, 1.2rem);
-}
-
-.card-content h3 {
-  font-family: 'Noto Sans SC', sans-serif;
-  color: #CC0000;
-  font-size: 2em;
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.card-content p {
-  font-family: 'Be Vietnam Pro', sans-serif;
-  color: #333333;
-  font-size: 1.1em;
-  line-height: 1.6;
-}
 .snake-image {
   width: 200px;
   height: 200px;

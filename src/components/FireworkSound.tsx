@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface FireworkSoundProps {
   isPlaying: boolean;
@@ -7,69 +7,97 @@ interface FireworkSoundProps {
 
 function FireworkSound({ isPlaying, shouldPlaySound }: FireworkSoundProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [isAudioInitialized, setIsAudioInitialized] = useState(false);
+  const intervalRef = useRef<number | null>(null);
 
-  // Initialize audio context
+  // Initialize audio
   useEffect(() => {
-    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-    audioContextRef.current = new AudioContext();
+    const initializeAudio = () => {
+      if (!isAudioInitialized) {
+        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+        const context = new AudioContext();
+        setAudioContext(context);
+        
+        audioRef.current = new Audio('/sounds/firework-sound.mp3');
+        audioRef.current.volume = 0.5;
+        setIsAudioInitialized(true);
 
-    if (!audioRef.current) {
-      audioRef.current = new Audio('/sounds/firework-sound.mp3');
-      audioRef.current.volume = 0.5;
-    }
-
-    // Cleanup function
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
+        startContinuousPlayback();
       }
     };
-  }, []);
 
-  // Handle user interaction to initialize audio
-  useEffect(() => {
+    const startContinuousPlayback = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+
+      intervalRef.current = window.setInterval(() => {
+        if (shouldPlaySound && audioRef.current && audioContext?.state !== 'suspended') {
+          const sound = audioRef.current.cloneNode() as HTMLAudioElement;
+          const randomVolume = 0.3 + Math.random() * 0.4;
+          sound.volume = randomVolume;
+          
+          const playPromise = sound.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              console.log('Audio playback failed:', error);
+            });
+          }
+        }
+      }, 3000);
+    };
+
+    // Initialize on first user interaction
     const handleInteraction = () => {
-      if (audioContextRef.current?.state === "suspended") {
-        audioContextRef.current.resume();
+      initializeAudio();
+      if (audioContext?.state === "suspended") {
+        audioContext.resume();
       }
     };
 
     window.addEventListener("click", handleInteraction);
     window.addEventListener("touchstart", handleInteraction);
+    
+    // Also try to initialize on component mount
+    initializeAudio();
 
     return () => {
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      audioContext?.close();
     };
-  }, []);
+  }, [isAudioInitialized]);
 
   // Handle sound playback
   useEffect(() => {
-    if (isPlaying && shouldPlaySound && audioRef.current && audioContextRef.current) {
-      const sound = audioRef.current.cloneNode() as HTMLAudioElement;
-      
-      // Add random volume variation
-      const randomVolume = 0.3 + Math.random() * 0.4; // Random volume between 0.3 and 0.7
-      sound.volume = randomVolume;
-
-      // Resume audio context if needed
-      if (audioContextRef.current.state === "suspended") {
-        audioContextRef.current.resume().then(() => {
-          sound.play().catch(error => {
-            console.log('Audio playback failed:', error);
-          });
-        });
-      } else {
-        sound.play().catch(error => {
-          console.log('Audio playback failed:', error);
-        });
+    const playSound = async () => {
+      if (isPlaying && shouldPlaySound && audioRef.current && audioContext) {
+        try {
+          if (audioContext.state === "suspended") {
+            await audioContext.resume();
+          }
+          
+          const sound = audioRef.current.cloneNode() as HTMLAudioElement;
+          const randomVolume = 0.3 + Math.random() * 0.4;
+          sound.volume = randomVolume;
+          
+          const playPromise = sound.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              console.log('Audio playback failed:', error);
+            });
+          }
+        } catch (error) {
+          console.error('Error playing sound:', error);
+        }
       }
-    }
+    };
+
+    playSound();
   }, [isPlaying, shouldPlaySound]);
 
   return null;
