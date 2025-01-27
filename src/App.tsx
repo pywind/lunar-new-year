@@ -93,8 +93,8 @@ function App() {
         <div className="image-container">
           <div className="image-card">
             <img 
-              src="/images/zodiac-snake-money-tree.png" 
-              alt="Snake with money"
+              src="/images/zodiac-snake-cloud.png" 
+              alt="Snake with cloud"
             />
             <div className="card-content">
               <h3>Phúc</h3>
@@ -103,32 +103,32 @@ function App() {
           </div>
           <div className="image-card">
             <img 
-              src="/images/zodiac-snake-lantern.png" 
-              alt="Snake with lanterns"
-            />
-            <div className="card-content">
-              <h3>Lộc</h3>
-              <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
-            </div>
-          </div>
-          <div className="image-card">
-            <img 
               src="/images/zodiac-snake-money-tree.png" 
               alt="Snake with money"
             />
             <div className="card-content">
-              <h3>Phúc</h3>
-              <p>An khang thịnh vượng – Như ý cát tường</p>
+              <h3>Lộc</h3>
+              <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
             </div>
           </div>
           <div className="image-card">
             <img 
-              src="/images/zodiac-snake-lantern.png" 
-              alt="Snake with lanterns"
+              src="/images/zodiac-snake-lion-hat.png" 
+              alt="Snake with lion hat"
             />
             <div className="card-content">
-              <h3>Lộc</h3>
-              <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
+              <h3>An</h3>
+              <p>May mắn đồng hành – An khang tới cửa</p>
+            </div>
+          </div>
+          <div className="image-card">
+            <img 
+              src="/images/zodiac-snake-ruyi-knot.png" 
+              alt="Snake with ruyi knot"
+            />
+            <div className="card-content">
+              <h3>Thần</h3>
+              <p>Xuân sang rộn ràng – Ý chí vững vàng</p>
             </div>
           </div>
         </div>
