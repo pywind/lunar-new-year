@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import "./App.css";
 import { Typography, Card, Space } from "antd";
 import { 
@@ -9,10 +9,88 @@ import {
 import { loadFireworksPreset } from "tsparticles-preset-fireworks";
 import Particles from "react-tsparticles";
 import type { Container, Engine } from "@tsparticles/engine";
+import FireworkSound from "./components/FireworkSound";
+import LazyImage from "./components/LazyImage";
 
 const { Title, Text } = Typography;
 
+// You can create a type for your image data
+interface ImageData {
+  src: string;
+  alt: string;
+  className: string;
+  width: number;
+  height: number;
+}
+
+// Update the card data interface
+interface CardData {
+  alt: string;
+  src: string;
+  title: string;
+  text: string;
+  imageData: ImageData;
+}
+
+const cardData: CardData[] = [
+  {
+    alt: "prosperity",
+    src: "/images/zodiac-snake-lion-hat.png",
+    title: "Phúc",
+    text: "An khang thịnh vượng – Như ý cát tường",
+    imageData: {
+      src: "/images/zodiac-snake-lion-hat.png",
+      alt: "prosperity",
+      className: "card-icon",
+      width: 150,
+      height: 150
+    }
+  },
+  {
+    alt: "luck",
+    src: "/images/zodiac-snake-lantern.png",
+    title: "Lộc",
+    text: "Túi luôn đầy tiền – Sung sướng như tiên",
+    imageData: {
+      src: "/images/zodiac-snake-lantern.png",
+      alt: "luck",
+      className: "card-icon",
+      width: 150,
+      height: 150
+    }
+  },
+  {
+    alt: "happiness",
+    src: "/images/zodiac-snake-cloud.png",
+    title: "An",
+    text: "May mắn đồng hành – An khang tới cửa",
+    imageData: {
+      src: "/images/zodiac-snake-cloud.png",
+      alt: "happiness",
+      className: "card-icon",
+      width: 150,
+      height: 150
+    }
+  },
+  {
+    alt: "money",
+    src: "/images/zodiac-snake-ruyi-knot.png",
+    title: "Thần",
+    text: "Xuân sang rộn ràng – Ý chí vững vàng",
+    imageData: {
+      src: "/images/zodiac-snake-ruyi-knot.png",
+      alt: "money",
+      className: "card-icon",
+      width: 150,
+      height: 150
+    }
+  }
+];
+
 function App() {
+  const [isFireworkPlaying, setIsFireworkPlaying] = useState(false);
+  const [shouldPlaySound, setShouldPlaySound] = useState(true);
+
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadFireworksPreset(engine);
   }, []);
@@ -21,12 +99,22 @@ function App() {
     console.log("Fireworks loaded");
   }, []);
 
+  const handleParticleCreated = useCallback(() => {
+    setIsFireworkPlaying(true);
+    // Reset the state after a short delay
+    setTimeout(() => setIsFireworkPlaying(false), 100);
+  }, []);
+
   useEffect(() => {
     document.body.className = "ant-dark";
   }, []);
 
   return (
     <div className="container">
+      <FireworkSound 
+        isPlaying={isFireworkPlaying} 
+        shouldPlaySound={shouldPlaySound} 
+      />
       <Particles
         id="fireworks"
         init={particlesInit}
@@ -47,6 +135,9 @@ function App() {
           fullScreen: {
             enable: true,
             zIndex: 1
+          },
+          events: {
+            particleCreated: handleParticleCreated
           }
         }}
       />
@@ -80,42 +171,24 @@ function App() {
           <CrownTwoTone twoToneColor="#FFD700" /> Năm Ất Tỵ 2025 <CrownTwoTone twoToneColor="#FFD700" />
         </Title>
         <Space direction="horizontal" size="large" wrap className="blessing-cards">
-          <Card 
-            className="tet-card"
-            cover={<img alt="prosperity" src="/images/zodiac-snake-lion-hat.png" className="card-icon" />}
-          >
-            <div className="card-content">
-              <h3>Phúc</h3>
-              <p>An khang thịnh vượng – Như ý cát tường</p>
-            </div>
-          </Card>
-          <Card 
-            className="tet-card"
-            cover={<img alt="luck" src="/images/zodiac-snake-lantern.png" className="card-icon" />}
-          >
-            <div className="card-content">
-              <h3>Lộc</h3>
-              <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
-            </div>
-          </Card>
-          <Card 
-            className="tet-card"
-            cover={<img alt="happiness" src="/images/zodiac-snake-cloud.png" className="card-icon" />}
-          >
-            <div className="card-content">
-              <h3>An</h3>
-              <p>May mắn đồng hành – An khang tới cửa</p>
-            </div>
-          </Card>
-          <Card 
-            className="tet-card"
-            cover={<img alt="money" src="/images/zodiac-snake-ruyi-knot.png" className="card-icon" />}
-          >
-            <div className="card-content">
-              <h3>Thần</h3>
-              <p>Xuân sang rộn ràng – Ý chí vững vàng</p>
-            </div>
-          </Card>
+          {cardData.map(card => (
+            <Card
+              key={card.alt}
+              className="tet-card"
+              cover={
+                <LazyImage
+                  {...card.imageData}
+                  fallback="/images/fallback-image.png"
+                  errorText={`Failed to load ${card.alt} image`}
+                />
+              }
+            >
+              <div className="card-content">
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </div>
+            </Card>
+          ))}
         </Space>
       </div>
 
