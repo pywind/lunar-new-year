@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: calc(12px + 0.3vw);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -47,13 +58,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #CC0000 0%, #990000 100%);
   border-radius: 20px;
-  padding: 2rem;
+  padding: clamp(0.5rem, 2vw, 1rem);
   position: relative;
-  overflow: hidden;
-  z-index: 1;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden !important;
+  padding-top: 2rem !important;
+}
+
+.title, .year-title {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 1rem !important;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .title {
@@ -65,9 +90,6 @@
   color: #FFD700;
   text-shadow: 0 0 10px #FF0000;
   animation: floating 3s ease-in-out infinite;
-  text-align: center;
-  width: 100%;
-  padding: 0 1rem;
 }
 
 .english-title {
@@ -97,7 +119,7 @@
 
 .year-title {
   font-family: 'Dancing Script', cursive !important;
-  font-size: 3em;
+  font-size: clamp(1.8rem, 5vw, 3rem);
   color: #FFD700;
   margin-bottom: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -143,21 +165,21 @@
 
 .lanterns {
   position: absolute;
-  top: 0;
+  top: -5% !important;
   width: 100%;
+  padding: 0 5% !important;
   display: flex;
-  justify-content: space-around;
-  padding: 0 5%;
+  justify-content: space-evenly;
   z-index: 2;
 }
 
 .lantern {
-  width: clamp(30px, 5vw, 50px);
-  height: clamp(50px, 8vw, 70px);
+  width: clamp(25px, 8vw, 40px) !important;
+  height: clamp(40px, 12vw, 60px) !important;
   background: linear-gradient(145deg, #FF0000 0%, #CC0000 100%);
   border-radius: 50% / 20%;
   position: relative;
-  animation: sway 3s ease-in-out infinite;
+  animation: simplified-sway 4s ease-in-out infinite;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -208,18 +230,15 @@
   50% { transform: translateX(20px) rotate(10deg); }
 }
 
-@keyframes sway {
-  0%, 100% { 
-    transform: rotate(-5deg) translateY(0); 
-  }
-  50% { 
-    transform: rotate(5deg) translateY(-5px); 
-  }
+@keyframes simplified-sway {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-3px); }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
+    padding: 0.5rem;
+    min-height: 100vh;
   }
 
   .title {
@@ -244,7 +263,7 @@
     padding: 0 10%;
   }
 
-  .decoration, .lantern {
+  .decoration, .lantern:not(.plum-decoration) {
     animation: none;
   }
   
@@ -263,7 +282,7 @@
   }
 
   .year-title {
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(1.2rem, 5vw, 2rem);
   }
 }
 
@@ -487,39 +506,48 @@
 /* Update the tet-content-wrapper styles */
 .tet-content-wrapper {
   position: relative;
-  padding: 2rem;
-  margin: 2rem auto;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  z-index: 3;
+  margin: clamp(0.5rem, 2vw, 1rem);
+  width: calc(100% - clamp(1rem, 4vw, 2rem));
   max-width: 1200px;
   background: linear-gradient(145deg, #CC0000 0%, #990000 100%);
-  border-radius: 20px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
 }
 
 /* Update the image container and card styles */
-.image-container {
-  display: flex;
-  justify-content: space-between;
+.image-container-desktop, .image-container-mobile {
   width: 100%;
-  padding: 1rem;
-  gap: 1.5rem;
+  max-width: 100vw;
+  margin: 0 auto;
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.image-container-desktop {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.image-container-mobile {
+  flex-direction: column;
 }
 
 .image-card {
   flex: 1;
-  background: #FFE4E1;
-  border-radius: 20px;
-  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  background: #FFE4E1;
+  border-radius: 15px;
+  padding: clamp(0.5rem, 2vw, 1rem);
   border: 2px solid #FFD700;
-  max-width: 400px;
-  margin: 0 auto;
   overflow: hidden;
-  animation: fadeInUp 0.8s ease-out;
   transition: transform 0.3s ease;
 }
 
@@ -532,64 +560,76 @@
   animation-delay: 0.2s;
 }
 
-.image-card:nth-child(2) {
-  animation-delay: 0.4s;
-}
-
 .image-card img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin-bottom: 1rem;
-  border-radius: 15px;
+  width: 100% !important;
+  height: auto !important;
+  max-height: min(30vh, 250px) !important;
+  object-position: center center;
+  transition: transform 0.3s ease;
 }
 
 .card-content {
   width: 100%;
-  text-align: center;
-  padding: 1rem;
-  background: #CC0000;
   margin-top: auto;
-  border-radius: 15px;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  background: #CC0000;
+  border-radius: 10px;
 }
 
 .card-content h3 {
   color: #FFD700;
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   margin-bottom: 0.5rem;
   font-family: 'Dancing Script', cursive;
 }
 
 .card-content p {
+  word-wrap: break-word;
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 /* Update responsive styles */
 @media (max-width: 768px) {
   .tet-content-wrapper {
-    margin: 1rem;
-    padding: 1rem;
-  }
-
-  .image-container {
-    flex-direction: column;
+    margin: 0.5rem;
     padding: 0.5rem;
-    gap: 1rem;
   }
 
-  .image-card {
+  .image-container-mobile .image-card {
+    width: 100%;
+    margin: 0;
+  }
+
+  .card-content {
     padding: 0.75rem;
   }
 
   .card-content h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .card-content p {
     font-size: 0.9rem;
+    line-height: 1.4;
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  .image-card {
+    margin-bottom: 0.5rem;
+    transform: none;
+  }
+
+  .image-card img {
+    max-height: 200px !important;
+    padding: 0.25rem;
+  }
+
+  .card-content {
+    padding: 0.5rem;
   }
 }
 
@@ -668,46 +708,6 @@
   }
 }
 
-/* Desktop Layout (4x1) */
-.image-container-desktop {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem;
-  gap: 1.5rem;
-}
-
-/* Mobile Layout (1x4) */
-.image-container-mobile {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0.5rem;
-  gap: 1rem;
-}
-
-.image-container-mobile .image-card {
-  width: 100%;
-  max-width: none;
-}
-
-/* Remove the old media query since we're handling it with the Responsive component */
-@media (max-width: 768px) {
-  .tet-content-wrapper {
-    margin: 1rem;
-    padding: 1rem;
-  }
-
-  .card-content h3 {
-    font-size: 1.5rem;
-  }
-
-  .card-content p {
-    font-size: 0.9rem;
-  }
-}
-
 /* Add this new wrapper */
 .plum-decorations-wrapper {
   position: fixed;
@@ -722,7 +722,7 @@
 .plum-decoration {
   position: fixed; /* Change to fixed positioning */
   z-index: 1000;
-  width: clamp(100px, 15vw, 200px);
+  width: clamp(60px, 15vw, 200px);
   height: auto;
   pointer-events: none; /* Prevents interaction with images */
 }
@@ -769,4 +769,204 @@
 .lanterns {
   position: relative;
   z-index: 2;
+}
+
+/* Enhanced mobile styles */
+@media (max-width: 768px) {
+  #root {
+    padding: 0.5rem;
+  }
+
+  .container {
+    border-radius: 10px;
+  }
+
+  .year-title {
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .image-container-mobile {
+    gap: 0.5rem;
+  }
+
+  .image-card {
+    transform: none; /* Disable hover effect on mobile */
+    margin-bottom: 0.5rem;
+  }
+
+  .card-content {
+    padding: 0.5rem;
+  }
+
+  .corner {
+    width: 20px;
+    height: 20px;
+  }
+
+  .gold-bar {
+    height: 20px;
+  }
+
+  .plum-left {
+    top: 5px;
+    left: 5px;
+  }
+
+  .plum-right {
+    top: 5px;
+    right: 5px;
+  }
+
+  .decorations {
+    bottom: 10px;
+  }
+
+  .decoration {
+    font-size: 1.5em;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.25rem;
+  }
+
+  .tet-content-wrapper {
+    margin: 0.25rem;
+    padding: 0.25rem;
+  }
+
+  .image-card {
+    padding: 0.25rem;
+  }
+
+  .image-card img {
+    max-height: 150px !important;
+    object-position: center top;
+  }
+
+  .card-content {
+    padding: 0.25rem;
+  }
+
+  .card-content h3 {
+    font-size: 1rem;
+  }
+
+  .card-content p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .plum-decoration {
+    width: clamp(40px, 12vw, 60px);
+  }
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+  .container {
+    min-height: -webkit-fill-available;
+  }
+
+  .image-card img {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* Prevent text selection on decorative elements */
+.decoration, .plum-decoration {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Improve touch targets on mobile */
+.image-card, .card-content {
+  touch-action: manipulation;
+}
+
+/* Prevent image drag */
+.image-card img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Global responsive base */
+html {
+  font-size: calc(12px + 0.3vw);
+}
+
+/* Hover effects only for devices that support hover */
+@media (hover: hover) {
+  .image-card:hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* Enhanced mobile styles */
+@media (max-width: 768px) {
+  .title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+    line-height: 1.3 !important;
+    margin: 1rem 0 !important;
+  }
+
+  .year-title {
+    font-size: clamp(1.2rem, 5vw, 2rem) !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+  }
+
+  .english-title {
+    display: none !important;
+  }
+
+  .container {
+    min-height: 100vh;
+    padding: 1rem 0.5rem !important;
+  }
+
+  .tet-content-wrapper {
+    margin-top: 1.5rem !important;
+  }
+
+  .decorations {
+    bottom: 5px !important;
+    font-size: 1.5rem !important;
+  }
+
+  .lanterns {
+    top: -2% !important;
+    padding: 0 2% !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .lantern::after {
+    display: none;
+  }
+
+  .title {
+    font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+  }
+
+  .year-title {
+    font-size: clamp(1rem, 4vw, 1.5rem) !important;
+  }
+}
+
+/* Performance optimizations */
+.lantern, .image-card img {
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
 }

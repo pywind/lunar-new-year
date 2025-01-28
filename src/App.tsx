@@ -1,11 +1,9 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, lazy, Suspense } from "react";
 import "./App.css";
 import { Typography } from "antd";
 import { loadFireworksPreset } from "tsparticles-preset-fireworks";
-import Particles from "react-tsparticles";
-import type { Container, Engine } from "@tsparticles/engine";
+import { Engine } from "tsparticles-engine";
 import FireworkSound from "./components/FireworkSound";
-import { useScreenSize } from './hooks/useScreenSize';
 import { Lanterns } from './components/Lanterns';
 import { useMediaQuery } from 'react-responsive';
 
@@ -77,11 +75,13 @@ const MobileLayout = () => (
   </div>
 );
 
+// Lazy load the Particles component
+const Particles = lazy(() => import('react-tsparticles').then(mod => ({ default: mod.Particles })));
+
 function App() {
-  const { isMobile } = useScreenSize();
   const [isFireworkPlaying, setIsFireworkPlaying] = useState(false);
-  const [shouldPlaySound, setShouldPlaySound] = useState(true);
-  const isDesktop = useMediaQuery({ minWidth: 768 });
+  const [shouldPlaySound] = useState(true);
+  const isDesktop = useMediaQuery({ minWidth: 770 });
 
   useEffect(() => {
     // Trigger initial firework after a short delay
@@ -92,13 +92,13 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const particlesInit = useCallback(async (engine: Engine) => {
+  const particlesInit = async (engine: Engine): Promise<void> => {
     await loadFireworksPreset(engine as any);
-  }, []);
+  };
 
-  const particlesLoaded = useCallback(async (container: Container | undefined) => {
+  const particlesLoaded = async (): Promise<void> => {
     console.log("Fireworks loaded");
-  }, []);
+  };
 
   const handleParticleCreated = useCallback(() => {
     setIsFireworkPlaying(true);
@@ -126,32 +126,34 @@ function App() {
         isPlaying={isFireworkPlaying} 
         shouldPlaySound={shouldPlaySound} 
       />
-      <Particles
-        id="fireworks"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={{
-          preset: "fireworks",
-          background: {
-            opacity: 0
-          },
-          particles: {
-            number: {
-              value: 0
+      <Suspense fallback={<div>Loading particles...</div>}>
+        <Particles
+          id="fireworks"
+          init={particlesInit}
+          loaded={particlesLoaded}
+          options={{
+            preset: "fireworks",
+            background: {
+              opacity: 0
             },
-            color: {
-              value: ["#FF0000", "#FFD700", "#FF69B4", "#FFA500"]
+            particles: {
+              number: {
+                value: 0
+              },
+              color: {
+                value: ["#FF0000", "#FFD700", "#FF69B4", "#FFA500"]
+              }
+            },
+            fullScreen: {
+              enable: true,
+              zIndex: 1
+            },
+            events: {
+              particleCreated: handleParticleCreated
             }
-          },
-          fullScreen: {
-            enable: true,
-            zIndex: 1
-          },
-          events: {
-            particleCreated: handleParticleCreated
-          }
-        }}
-      />
+          }}
+        />
+      </Suspense>
       
       <Lanterns count={3} />
 
