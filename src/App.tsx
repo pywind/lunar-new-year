@@ -7,13 +7,81 @@ import type { Container, Engine } from "@tsparticles/engine";
 import FireworkSound from "./components/FireworkSound";
 import { useScreenSize } from './hooks/useScreenSize';
 import { Lanterns } from './components/Lanterns';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title } = Typography;
+
+const DesktopLayout = () => (
+  <div className="image-container image-container-desktop">
+    <div className="image-card">
+      <img src="/images/zodiac-snake-cloud.png" alt="Snake with cloud" />
+      <div className="card-content">
+        <h3>Phúc</h3>
+        <p>An khang thịnh vượng – Như ý cát tường</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-money-tree.png" alt="Snake with money" />
+      <div className="card-content">
+        <h3>Lộc</h3>
+        <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-lion-hat.png" alt="Snake with lion hat" />
+      <div className="card-content">
+        <h3>An</h3>
+        <p>May mắn đồng hành – An khang tới cửa</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-ruyi-knot.png" alt="Snake with ruyi knot" />
+      <div className="card-content">
+        <h3>Thần</h3>
+        <p>Xuân sang rộn ràng – Ý chí vững vàng</p>
+      </div>
+    </div>
+  </div>
+);
+
+const MobileLayout = () => (
+  <div className="image-container image-container-mobile">
+    <div className="image-card">
+      <img src="/images/zodiac-snake-cloud.png" alt="Snake with cloud" />
+      <div className="card-content">
+        <h3>Phúc</h3>
+        <p>An khang thịnh vượng – Như ý cát tường</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-money-tree.png" alt="Snake with money" />
+      <div className="card-content">
+        <h3>Lộc</h3>
+        <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-lion-hat.png" alt="Snake with lion hat" />
+      <div className="card-content">
+        <h3>An</h3>
+        <p>May mắn đồng hành – An khang tới cửa</p>
+      </div>
+    </div>
+    <div className="image-card">
+      <img src="/images/zodiac-snake-ruyi-knot.png" alt="Snake with ruyi knot" />
+      <div className="card-content">
+        <h3>Thần</h3>
+        <p>Xuân sang rộn ràng – Ý chí vững vàng</p>
+      </div>
+    </div>
+  </div>
+);
 
 function App() {
   const { isMobile } = useScreenSize();
   const [isFireworkPlaying, setIsFireworkPlaying] = useState(false);
   const [shouldPlaySound, setShouldPlaySound] = useState(true);
+  const isDesktop = useMediaQuery({ minWidth: 768 });
 
   useEffect(() => {
     // Trigger initial firework after a short delay
@@ -44,6 +112,16 @@ function App() {
 
   return (
     <div className="container">
+      <img 
+        src="/images/sakura-branch.png" 
+        alt="Sakura Branch Left" 
+        className="plum-decoration plum-left"
+      />
+      <img 
+        src="/images/sakura-branch.png" 
+        alt="Plum Branch Right" 
+        className="plum-decoration plum-right"
+      />
       <FireworkSound 
         isPlaying={isFireworkPlaying} 
         shouldPlaySound={shouldPlaySound} 
@@ -89,48 +167,7 @@ function App() {
           👑 Năm Ất Tỵ 2025 👑
         </Title>
 
-        <div className="image-container">
-          <div className="image-card">
-            <img 
-              src="/images/zodiac-snake-cloud.png" 
-              alt="Snake with cloud"
-            />
-            <div className="card-content">
-              <h3>Phúc</h3>
-              <p>An khang thịnh vượng – Như ý cát tường</p>
-            </div>
-          </div>
-          <div className="image-card">
-            <img 
-              src="/images/zodiac-snake-money-tree.png" 
-              alt="Snake with money"
-            />
-            <div className="card-content">
-              <h3>Lộc</h3>
-              <p>Túi luôn đầy tiền – Sung sướng như tiên</p>
-            </div>
-          </div>
-          <div className="image-card">
-            <img 
-              src="/images/zodiac-snake-lion-hat.png" 
-              alt="Snake with lion hat"
-            />
-            <div className="card-content">
-              <h3>An</h3>
-              <p>May mắn đồng hành – An khang tới cửa</p>
-            </div>
-          </div>
-          <div className="image-card">
-            <img 
-              src="/images/zodiac-snake-ruyi-knot.png" 
-              alt="Snake with ruyi knot"
-            />
-            <div className="card-content">
-              <h3>Thần</h3>
-              <p>Xuân sang rộn ràng – Ý chí vững vàng</p>
-            </div>
-          </div>
-        </div>
+        {isDesktop ? <DesktopLayout /> : <MobileLayout />}
       </div>
 
       <div className="decorations">
