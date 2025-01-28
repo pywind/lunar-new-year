@@ -81,7 +81,7 @@ const Particles = lazy(() => import('react-tsparticles'));
 function App() {
   const [isFireworkPlaying, setIsFireworkPlaying] = useState(false);
   const [shouldPlaySound] = useState(true);
-  const isDesktop = useMediaQuery({ minWidth: 768 });
+  const isDesktop = useMediaQuery({ minWidth: 769 });
 
   useEffect(() => {
     // Trigger initial firework after a short delay

@@ -244,7 +244,7 @@
     padding: 0 10%;
   }
 
-  .decoration, .lantern {
+  .decoration, .lantern:not(.plum-decoration) {
     animation: none;
   }
   
@@ -488,6 +488,7 @@
 .tet-content-wrapper {
   position: relative;
   padding: 2rem;
+  z-index: 3;
   margin: 2rem auto;
   max-width: 1200px;
   background: linear-gradient(145deg, #CC0000 0%, #990000 100%);
@@ -575,7 +576,7 @@
   }
 
   .image-container {
-    flex-direction: column;
+    /* flex-direction: column; */
     padding: 0.5rem;
     gap: 1rem;
   }
@@ -669,6 +670,7 @@
 }
 
 /* Desktop Layout (4x1) */
+/* Replace existing styles with these */
 .image-container-desktop {
   display: flex;
   flex-direction: row;
@@ -678,7 +680,6 @@
   gap: 1.5rem;
 }
 
-/* Mobile Layout (1x4) */
 .image-container-mobile {
   display: flex;
   flex-direction: column;
