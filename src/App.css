@@ -219,7 +219,8 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
+    padding: 0.5rem;
+    min-height: 100vh;
   }
 
   .title {
@@ -539,7 +540,9 @@
 
 .image-card img {
   max-width: 100%;
+  max-width: 280px;
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
   margin-bottom: 1rem;
   border-radius: 15px;
@@ -552,6 +555,7 @@
   background: #CC0000;
   margin-top: auto;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .card-content h3 {
@@ -562,6 +566,7 @@
 }
 
 .card-content p {
+  word-wrap: break-word;
   color: #FFFFFF;
   font-size: 1rem;
   margin: 0;
@@ -572,7 +577,7 @@
 @media (max-width: 768px) {
   .tet-content-wrapper {
     margin: 1rem;
-    padding: 1rem;
+    padding: 0.5rem !important;
   }
 
   .image-container {
@@ -586,7 +591,7 @@
   }
 
   .card-content h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem !important;
   }
 
   .card-content p {

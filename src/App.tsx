@@ -76,12 +76,12 @@ const MobileLayout = () => (
 );
 
 // Lazy load the Particles component
-const Particles = lazy(() => import('react-tsparticles'));
+const Particles = lazy(() => import('react-tsparticles').then(mod => ({ default: mod.Particles })));
 
 function App() {
   const [isFireworkPlaying, setIsFireworkPlaying] = useState(false);
   const [shouldPlaySound] = useState(true);
-  const isDesktop = useMediaQuery({ minWidth: 769 });
+  const isDesktop = useMediaQuery({ minWidth: 770 });
 
   useEffect(() => {
     // Trigger initial firework after a short delay
