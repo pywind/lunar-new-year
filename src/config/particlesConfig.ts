@@ -13,8 +13,7 @@ export const createParticlesConfig = ({ onParticleCreated }: CreateParticlesConf
     number: {
       value: 0,
       density: {
-        enable: true,
-        value_area: 800
+        enable: true
       }
     },
     shape: {
@@ -25,9 +24,7 @@ export const createParticlesConfig = ({ onParticleCreated }: CreateParticlesConf
       speed: 3,
       direction: "none" as const,
       random: false,
-      straight: false,
-      out_mode: "out",
-      bounce: false,
+      straight: false
     }
   },
   fullScreen: {
