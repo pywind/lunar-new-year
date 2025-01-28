@@ -8,32 +8,30 @@ interface LanternProps {
 export const Lanterns: FC<LanternProps> = ({ count = 3 }) => {
   const screenSize = useScreenSize();
   
-  // Adjust lantern count based on screen size
   const getLanternCount = () => {
-    switch(screenSize) {
-      case 'xs':
-        return 2;
-      case 'sm':
-        return 2;
-      case 'md':
-        return 3;
-      case 'lg':
-      case 'xl':
-      case '2xl':
-        return count;
-      default:
-        return 3;
-    }
+    if (screenSize === 'xs' || screenSize === 'sm') return 2;
+    return count;
   };
 
   return (
-    <div className="lanterns">
+    <div 
+      className="lanterns-wrapper" 
+      style={{
+        position: 'fixed',
+        WebkitTransform: 'translateZ(0)',
+        transform: 'translateZ(0)',
+      }}
+    >
       {Array.from({ length: getLanternCount() }).map((_, index) => (
         <div 
           key={`lantern-${index}`} 
           className="lantern"
           style={{
-            animationDelay: `${index * 0.2}s`
+            animationDelay: `${index * 0.2}s`,
+            opacity: 1,
+            visibility: 'visible',
+            WebkitTransform: 'translate3d(0,0,0)',
+            transform: 'translate3d(0,0,0)',
           }}
         />
       ))}
